@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ShopNest — find everyday favorites and great deals.">
+  <title>ShopNest | Everyday Finds, Better Prices</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous">
+
+  <style>
+    :root {
+      --navy: #172554;
+      --blue: #3158d8;
+      --blue-dark: #2446b5;
+      --ink: #1f2937;
+      --muted: #667085;
+      --surface: #f5f7fb;
+      --line: #e8ebf2;
+      --orange: #ffb547;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 3px 16px rgba(23, 37, 84, 0.05);
+    }
+
+    .brand {
+      color: var(--navy);
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+    }
+
+    .brand span {
+      color: var(--blue);
+    }
+
+    .nav-link {
+      color: #475467;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .nav-link:hover {
+      color: var(--blue);
+    }
+
+    .search-box {
+      max-width: 300px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+
+    .search-box input {
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      padding: 0.6rem 0.8rem;
+    }
+
+    .cart-button {
+      border: 0;
+      background: transparent;
+      color: var(--navy);
+      font-size: 1.45rem;
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -2px;
+      right: -7px;
+      display: grid;
+      width: 19px;
+      height: 19px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--blue);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .hero {
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(15, 23, 42, 0.83), rgba(15, 23, 42, 0.16)),
+        url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=2000&q=85")
+        center 52% / cover;
+    }
+
+    .hero-content {
+      max-width: 640px;
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: #dce6ff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 600px;
+      margin-bottom: 1rem;
+      font-size: clamp(2.5rem, 6vw, 4.6rem);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      line-height: 1.03;
+    }
+
+    .hero p {
+      max-width: 490px;
+      margin-bottom: 1.7rem;
+      color: #edf1fa;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .btn-shop {
+      padding: 0.8rem 1.3rem;
+      color: #fff;
+      background: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: 0.6rem;
+      font-weight: 700;
+    }
+
+    .btn-shop:hover {
+      color: #fff;
+      background: var(--blue-dark);
+      border-color: var(--blue-dark);
+    }
+
+    .btn-outline-light {
+      padding: 0.8rem 1.3rem;
+      border-radius: 0.6rem;
+      font-weight: 700;
+    }
+
+    .benefit-strip {
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .benefit {
+      padding: 1rem;
+      color: #475467;
+      text-align: center;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .benefit strong {
+      color: var(--navy);
+    }
+
+    .section-space {
+      padding-top: 4.5rem;
+      padding-bottom: 4.5rem;
+    }
+
+    .section-heading {
+      margin-bottom: 0.55rem;
+      color: var(--navy);
+      font-size: clamp(1.8rem, 4vw, 2.45rem);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+    }
+
+    .section-subtitle {
+      margin-bottom: 2rem;
+      color: var(--muted);
+    }
+
+    .product-card {
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: #fff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(23, 37, 84, 0.1);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: var(--surface);
+    }
+
+    .product-info {
+      padding: 1rem;
+    }
+
+    .product-category {
+      margin-bottom: 0.35rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .product-name {
+      margin-bottom: 0.45rem;
+      color: var(--navy);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .rating {
+      margin-bottom: 0.75rem;
+      color: #eea817;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    .rating small {
+      color: var(--muted);
+      letter-spacing: 0;
+    }
+
+    .price {
+      color: var(--navy);
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .old-price {
+      margin-left: 0.35rem;
+      color: #98a2b3;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .add-button {
+      width: 100%;
+      margin-top: 0.8rem;
+      padding: 0.65rem;
+      color: var(--blue);
+      background: #eef2ff;
+      border: 0;
+      border-radius: 0.55rem;
+      font-weight: 700;
+    }
+
+    .add-button:hover {
+      color: #fff;
+      background: var(--blue);
+    }
+
+    .deal-aside {
+      margin-top: 2rem;
+      padding: 1.2rem 1.4rem;
+      border-radius: 0.85rem;
+      color: var(--navy);
+      background: #eef2ff;
+    }
+
+    .deal-aside strong {
+      color: var(--blue);
+    }
+
+    .category-tile {
+      min-height: 220px;
+      display: flex;
+      align-items: end;
+      padding: 1.25rem;
+      overflow: hidden;
+      position: relative;
+      border-radius: 1rem;
+      color: white;
+      background-position: center;
+      background-size: cover;
+      isolation: isolate;
+      transition: transform 0.2s ease;
+    }
+
+    .category-tile::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(15, 23, 42, 0.76), transparent 72%);
+    }
+
+    .category-tile:hover {
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    .category-tile h3 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .newsletter {
+      padding: 3.5rem 1rem;
+      color: #fff;
+      background: var(--navy);
+    }
+
+    .newsletter h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .newsletter p {
+      color: #d5def4;
+    }
+
+    .newsletter-form {
+      max-width: 480px;
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.2rem auto 0;
+    }
+
+    .newsletter-form input {
+      min-width: 0;
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 0;
+      border-radius: 0.55rem;
+    }
+
+    .newsletter-form button {
+      padding: 0.8rem 1rem;
+      border: 0;
+      border-radius: 0.55rem;
+      color: var(--navy);
+      background: var(--orange);
+      font-weight: 800;
+    }
+
+    .site-footer {
+      padding: 3.5rem 0 1.2rem;
+      color: #d0d5dd;
+      background: #101a3a;
+    }
+
+    .site-footer h2,
+    .site-footer h3 {
+      margin-bottom: 1rem;
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .site-footer p,
+    .site-footer li {
+      color: #c2c9da;
+      font-size: 0.92rem;
+      line-height: 1.8;
+    }
+
+    .site-footer ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .site-footer a:hover {
+      color: #fff;
+    }
+
+    .copyright {
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      color: #aeb8cf;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 767.98px) {
+      .hero {
+        min-height: 410px;
+        background-position: 60% center;
+      }
+
+      .hero-content {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+
+      .product-image {
+        height: 190px;
+      }
+
+      .section-space {
+        padding-top: 3.2rem;
+        padding-bottom: 3.2rem;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-form button {
+        width: 100%;
+      }
+
+      .category-tile {
+        min-height: 175px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sticky site header and navigation -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand brand" href="#home" aria-label="ShopNest home">
+          Shop<span>Nest</span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavigation"
+          aria-controls="mainNavigation"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavigation">
+          <ul class="navbar-nav mx-auto gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
+          </ul>
+
+          <form class="search-box d-flex my-3 my-lg-0 me-lg-3" role="search">
+            <label class="visually-hidden" for="siteSearch">Search products</label>
+            <input id="siteSearch" type="search" placeholder="Search products..." aria-label="Search products">
+            <button class="btn" type="submit" aria-label="Search">⌕</button>
+          </form>
+
+          <button class="cart-button" type="button" aria-label="Shopping cart">
+            🛒 <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero banner -->
+    <section class="hero" id="home" aria-labelledby="heroTitle">
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">Good finds. Great prices.</span>
+          <h1 id="heroTitle">Everyday shopping, made better.</h1>
+          <p>
+            Discover useful favorites, fresh styles, and little upgrades
+            for your everyday life — all in one place.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a class="btn btn-shop" href="#products">Shop Now</a>
+            <a class="btn btn-outline-light" href="#deals">View Deals</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Store benefits -->
+    <section class="benefit-strip" aria-label="Shopping benefits">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-4 benefit"><strong>Free shipping</strong> on orders over $50</div>
+          <div class="col-12 col-md-4 benefit"><strong>Easy returns</strong> within 30 days</div>
+          <div class="col-12 col-md-4 benefit"><strong>Secure checkout</strong> for every order</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured products -->
+    <section class="section-space" id="products" aria-labelledby="productsTitle">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-heading" id="productsTitle">Featured Products</h2>
+          <p class="section-subtitle">Handpicked favorites at prices worth a second look.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-6 col-lg-4">
+            <article class="product-card">
+              <img class="product-image"
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+                alt="Wireless headphones" loading="lazy">
+              <div class="product-info">
+                <p class="product-category">Electronics</p>
+                <h3 class="product-name">Wireless Headphones</h3>
+                <div class="rating" aria-label="Rated 4.8 out of 5">★★★★★ <small>(128)</small></div>
+                <div class="price">$59.99 <del class="old-price">$79.99</del></div>
+                <button class="add-button" type="button">Add to Cart</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-lg-4">
+            <article class="product-card">
+              <img class="product-image"
+                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
+                alt="Minimal wristwatch" loading="lazy">
+              <div class="product-info">
+                <p class="product-category">Accessories</p>
+                <h3 class="product-name">Classic Everyday Watch</h3>
+                <div class="rating" aria-label="Rated 4.7 out of 5">★★★★★ <small>(94)</small></div>
+                <div class="price">$44.99 <del class="old-price">$59.99</del></div>
+                <button class="add-button" type="button">Add to Cart</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-lg-4">
+            <article class="product-card">
+              <img class="product-image"
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+                alt="Red running shoe" loading="lazy">
+              <div class="product-info">
+                <p class="product-category">Footwear</p>
+                <h3 class="product-name">Active Running Shoes</h3>
+                <div class="rating" aria-label="Rated 4.9 out of 5">★★★★★ <small>(216)</small></div>
+                <div class="price">$69.99 <del class="old-price">$89.99</del></div>
+                <button class="add-button" type="button">Add to Cart</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-lg-4">
+            <article class="product-card">
+              <img class="product-image"
+                src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80"
+                alt="Stylish handbag" loading="lazy">
+              <div class="product-info">
+                <p class="product-category">Fashion</p>
+                <h3 class="product-name">Everyday Carry Bag</h3>
+                <div class="rating" aria-label="Rated 4.6 out of 5">★★★★★ <small>(73)</small></div>
+                <div class="price">$39.99 <del class="old-price">$54.99</del></div>
+                <button class="add-button" type="button">Add to Cart</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-lg-4">
+            <article class="product-card">
+              <img class="product-image"
+                src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=80"
+                alt="Modern chair for a home" loading="lazy">
+              <div class="product-info">
+                <p class="product-category">Home</p>
+                <h3 class="product-name">Modern Lounge Chair</h3>
+                <div class="rating" aria-label="Rated 4.8 out of 5">★★★★★ <small>(56)</small></div>
+                <div class="price">$119.99 <del class="old-price">$149.99</del></div>
+                <button class="add-button" type="button">Add to Cart</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-lg-4">
+            <article class="product-card">
+              <img class="product-image"
+                src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80"
+                alt="Books stacked together" loading="lazy">
+              <div class="product-info">
+                <p class="product-category">Books</p>
+                <h3 class="product-name">The Good Ideas Collection</h3>
+                <div class="rating" aria-label="Rated 4.7 out of 5">★★★★★ <small>(102)</small></div>
+                <div class="price">$18.99 <del class="old-price">$24.99</del></div>
+                <button class="add-button" type="button">Add to Cart</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Semantic aside for a promotional message -->
+        <aside class="deal-aside text-center" id="deals" aria-label="Special offer">
+          <strong>Weekend deal:</strong> Use code <strong>NEST10</strong> for 10% off your first order.
+        </aside>
+      </div>
+    </section>
+
+    <!-- Category showcase -->
+    <section class="section-space pt-0" id="categories" aria-labelledby="categoriesTitle">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-heading" id="categoriesTitle">Shop by Category</h2>
+          <p class="section-subtitle">Browse a few of our favorite departments.</p>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-6 col-lg-3">
+            <a class="category-tile"
+              href="#products"
+              style="background-image:url('https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=80')">
+              <h3>Electronics</h3>
+            </a>
+          </div>
+          <div class="col-6 col-lg-3">
+            <a class="category-tile"
+              href="#products"
+              style="background-image:url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80')">
+              <h3>Clothing</h3>
+            </a>
+          </div>
+          <div class="col-6 col-lg-3">
+            <a class="category-tile"
+              href="#products"
+              style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80')">
+              <h3>Footwear</h3>
+            </a>
+          </div>
+          <div class="col-6 col-lg-3">
+            <a class="category-tile"
+              href="#products"
+              style="background-image:url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80')">
+              <h3>Books</h3>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter signup -->
+    <section class="newsletter text-center" aria-labelledby="newsletterTitle">
+      <div class="container">
+        <h2 id="newsletterTitle">A little good news in your inbox.</h2>
+        <p>Sign up for new arrivals, special deals, and ShopNest updates.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <label class="visually-hidden" for="emailAddress">Your email address</label>
+          <input id="emailAddress" type="email" placeholder="Enter your email address" required>
+          <button type="submit">Sign Me Up</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Multi-column footer -->
+  <footer class="site-footer" id="footer">
+    <div class="container">
+      <div class="row g-4">
+        <section class="col-12 col-md-6 col-lg-3" aria-labelledby="aboutTitle">
+          <h2 class="brand text-white" id="aboutTitle">Shop<span>Nest</span></h2>
+          <p>Everyday finds, thoughtful picks, and simple shopping for your home and life.</p>
+        </section>
+
+        <section class="col-6 col-lg-3" aria-labelledby="quickLinksTitle">
+          <h3 id="quickLinksTitle">Quick Links</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Featured Products</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#deals">Current Deal</a></li>
+          </ul>
+        </section>
+
+        <section class="col-6 col-lg-3" aria-labelledby="contactTitle">
+          <h3 id="contactTitle">Contact</h3>
+          <ul>
+            <li><a href="mailto:hello@shopnest.example">hello@shopnest.example</a></li>
+            <li>Monday–Friday, 9am–5pm</li>
+            <li>123 Market Street</li>
+          </ul>
+        </section>
+
+        <section class="col-12 col-lg-3" aria-labelledby="socialTitle">
+          <h3 id="socialTitle">Follow Us</h3>
+          <ul>
+            <li><a href="#footer">Instagram</a></li>
+            <li><a href="#footer">Facebook</a></li>
+            <li><a href="#footer">Pinterest</a></li>
+          </ul>
+        </section>
+      </div>
+
+      <p class="copyright mb-0">© 2025 ShopNest. Student project demo website.</p>
+    </div>
+  </footer>
+
+  <!-- Small demo interactions: cart counter, search notice, and newsletter notice -->
+  <script>
+    let cartItems = 0;
+    const cartCount = document.getElementById("cartCount");
+
+    document.querySelectorAll(".add-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        cartItems += 1;
+        cartCount.textContent = cartItems;
+        button.textContent = "Added!";
+        window.setTimeout(() => {
+          button.textContent = "Add to Cart";
+        }, 900);
+      });
+    });
+
+    document.querySelector(".search-box").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const searchTerm = document.getElementById("siteSearch").value.trim();
+      if (searchTerm) {
+        alert('Demo search: "' + searchTerm + '"');
+      }
+    });
+
+    document.getElementById("newsletterForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      alert("Thanks for signing up! This demo form does not save email addresses.");
+      event.target.reset();
+    });
+  </script>
+
+  <!-- Bootstrap JavaScript for the responsive navigation menu -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BjVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+</html>
